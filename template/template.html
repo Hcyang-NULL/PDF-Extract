@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% autoescape None %}
+    <meta charset="UTF-8">
+    <title>ATS</title>
+    <link rel="stylesheet" href="{{ static_url('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/common.css') }}">
+    <script src="{{ static_url('js/jquery.min.js') }}"></script>
+    <script src="{{ static_url('js/jquery.cookie.js') }}"></script>
+    <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
+    <script src="{{ static_url('js/popper.min.js') }}"></script>
+    <script src="{{ static_url('js/pdfobject.min.js') }}"></script>
+    <script src="{{ static_url('js/home.js') }}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-light navbar-light g_head" id="no-user">
+        <div class="container p-2"  style="width: 100%">
+            <div style="width: 100%; text-align: center; float: left">
+                <div style="line-height: 150%; font-size: 20px" class="font-weight-light">
+                    <img src="{{ static_url('img/logo.png') }}" style="height: 30px; margin-right: 2%; margin-top: -4px;"/>
+                    <text>PDF Translate</text>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <div class="container">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <form id="translate" name="form" action="http://39.106.57.52/pdf_trans/{{trans_id}}" method="POST"  enctype="multipart/form-data">
+                        <button class="btn btn-outline-secondary" type="submit" style="border-bottom-right-radius: 0; border-top-right-radius: 0" >翻译</button>
+                    </form>
+                </div>
+                <div class="custom-file">
+                    <form id="choose" name="form" action="http://39.106.57.52/pdf_upload" method="POST"  enctype="multipart/form-data">
+                        <input type="file" class="custom-file-input" id="inputGroupFile03" name="pdf_file">
+                    </form>
+                    <label class="custom-file-label" for="inputGroupFile03" id="label-file">{{ file_label }}</label>
+                </div>
+            </div>
+    </div>
+    <script type="text/javascript">
+        {{js_code}}
+    </script>
+    {% if pdf_code == '' and trans_result == '' %}
+        <div class="container font-weight-light" style="margin-top: 5%;">
+            <div class="container">
+                <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-center text-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                使用条件
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                1. 最好使用Chrome浏览器，其他浏览器可能没有翻译功能
+                                <span class="badge badge-danger badge-pill">important</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                2. 选择的文件必须是PDF文件
+                                <span class="badge badge-danger badge-pill">important</span>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-center collapsed text-info" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                操作步骤
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                步骤1：选择要翻译的PDF文件
+                                <span class="badge badge-success badge-pill"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                步骤2-1：若提示上传成功，点击翻译按钮
+                                <span class="badge badge-success badge-pill"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                步骤2-2：若提示上传失败，请检查网络连接
+                                <span class="badge badge-danger badge-pill"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                步骤3：在页面中右键选择"翻译成中文"选项
+                                <span class="badge badge-danger badge-pill"></span>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingFour">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-center collapsed text-info" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseTwo">
+                                功能说明
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                1. 点击顶部图标或文字均可回到首页
+                                <span class="badge badge-warning badge-pill"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                2. 点击翻译后可能需要等待一小会儿，服务器正在处理
+                                <span class="badge badge-success badge-pill"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                3. 从PDF中提取的文本里去除了所有email以及一些无关紧要的内容
+                                <span class="badge badge-success badge-pill"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                4. 有任何的建议或者反馈，可发送邮件至底部邮箱
+                                <span class="badge badge-success badge-pill"></span>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    {% end %}
+    {% if pdf_code != '' and trans_result != '' %}
+        <div style="height: 100%; margin-top: 2%;">
+            <div id="pdf" class="pdfobject-container pdf_result">
+                <script>
+                    {{ pdf_code }}
+                </script>
+            </div>
+            <div class="trans_result" >
+                {{ trans_result }}
+            </div>
+        </div>
+    {% end %}
+    <div style="background-color: rgb(250, 250, 250); height: 65px; position: fixed; bottom: 0px; width: 100%">
+        <div class="text-center font-weight-light" style="line-height: 65px;">
+            Email: hcyangnull@163.com
+        </div>
+    </div>
+</body>
+</html>
